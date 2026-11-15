@@ -39,7 +39,7 @@ main {
   padding: 1rem;
 }
 
-.flex-column-parent, .flex-column-child, .flex-row-parent {
+.flex-column-parent, .flex-column-child, .flex-row-parent, footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -101,6 +101,12 @@ main {
 button {
   padding: 1rem 2rem;
   border-radius: 999px;
+}
+
+footer {
+  color: white;
+  background-color: black;
+  padding: 2rem;
 }
 
 svg {
