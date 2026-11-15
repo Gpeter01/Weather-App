@@ -6,7 +6,7 @@ const dialog = document.querySelector('dialog');
 function createForm() {
   dialog.innerHTML = `
   <div class="button-container">
-    <button type="button">Cancel</button>
+    <button type="button" data-action='exit'>Cancel</button>
   </div>
   <h3>Find the weather at a location of your choice</h2>
   <label for="city">Enter a city:
@@ -21,36 +21,40 @@ function createForm() {
       <option value="metric">Metric</option>
     </select>
   </label>
-  <button type="button" class='submit'>Submit</button>`;
+  <button type="button" class='submit' data-action='submit'>Submit</button>`;
 }
 
 function addFormStyle() {
   dialog.classList.add('form');
-  dialog.classList.remove('loader');
 }
 
 function addSpinningSVGStyle() {  
-  dialog.classList.remove('form');
   dialog.classList.add('loader');
 }
 
 function createSpinningSVG() {
   dialog.innerHTML = `
- <div class='svg-container'>
-   <svg viewBox="0 0 200 200">
-    <circle cx="100" cy="100" r="80"/>
+  <div class='svg-container'>
+  <svg viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="80"/>
   </svg>
- </div>
+  </div>
   <p>Wait a moment</p>`;
 }
 
 function closeDialog() {
   dialog.close();
+  removeDialogStyle();
 }
 
 function clearDialog() {
+  dialog.innerHTML = '';
   closeDialog();
-  dialog.innerHtml = '';
+}
+
+function removeDialogStyle() {
+  dialog.classList.remove('form');
+  dialog.classList.remove('loader');
 }
 
 function openDialog() {

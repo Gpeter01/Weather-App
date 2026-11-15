@@ -233,8 +233,14 @@ function createConditionsContent(conditions) {
   mainContainer.appendChild(conditionsContainer);
 }
 
+function clearMainContainer() {
+  mainContainer.innerHTML = '';
+}
+
 function createWeatherBody(response) {
   const weather = sortNullResponse(response);
+
+  clearMainContainer();
   
   createTempContent(weather.currentConditions.temp);
   createFeelsLike(weather.currentConditions.feelslike);
