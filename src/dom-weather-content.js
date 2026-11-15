@@ -59,6 +59,7 @@ function createFeelsLike(feelsLike) {
 }
 
 function createLocationContent(longitude, latitude) {
+  const container = document.createElement('div');
   const locationContainer = document.createElement('div');
   const longitudeContainer = document.createElement('div');
   const latitudeContainer = document.createElement('div');
@@ -66,6 +67,7 @@ function createLocationContent(longitude, latitude) {
   const latitudeValue = document.createElement('p');
   const longitudeHeader = document.createElement('p');
   const longitudeValue = document.createElement('p');
+  const title = document.createElement('p');
 
   longitudeHeader.textContent = `Longitude`;
   longitudeValue.textContent = longitude;
@@ -73,14 +75,20 @@ function createLocationContent(longitude, latitude) {
   latitudeHeader.textContent = `Latitude`;
   latitudeValue.textContent = latitude;
 
-  locationContainer.classList.add('flex-row-parent', 'parent');
+  title.textContent = 'Location';
+
+  container.classList.add('parent');
+  locationContainer.classList.add('flex-row-parent');
   longitudeContainer.classList.add('flex-column-child');
   latitudeContainer.classList.add('flex-column-child');
   latitudeHeader.classList.add('info-header');
   latitudeValue.classList.add('info-value');
   longitudeHeader.classList.add('info-header');
   longitudeValue.classList.add('info-value');
-
+  title.classList.add('info-header', 'section-title');
+  
+  container.appendChild(title);
+  container.appendChild(locationContainer);
   locationContainer.appendChild(longitudeContainer);
   longitudeContainer.appendChild(longitudeHeader);
   longitudeContainer.appendChild(longitudeValue);
@@ -88,7 +96,7 @@ function createLocationContent(longitude, latitude) {
   latitudeContainer.appendChild(latitudeHeader);
   latitudeContainer.appendChild(latitudeValue);
 
-  mainContainer.appendChild(locationContainer);
+  mainContainer.appendChild(container);
   //next step is to append to the body container or at least the weather container box
 }
 
@@ -112,6 +120,7 @@ function createHumidityContent(humidity) {
 }
 
 function createWindContent(windgust, windspeed, winddir) {
+  const container = document.createElement('div');
   const windContainer = document.createElement('div');
   const windGustContainer = document.createElement('div');
   const windSpeedContainer = document.createElement('div');
@@ -123,6 +132,7 @@ function createWindContent(windgust, windspeed, winddir) {
   const windSpeedValue = document.createElement('p');
   const windDirHeader = document.createElement('p');
   const windDirValue = document.createElement('p');
+  const title = document.createElement('p');
 
   windGustHeader.innerHTML = `Wind Gust`;
   windSpeedHeader.innerHTML = `Wind Speed`;
@@ -132,7 +142,10 @@ function createWindContent(windgust, windspeed, winddir) {
   windSpeedValue.textContent = windspeed;
   windDirValue.textContent = winddir;
 
-  windContainer.classList.add('flex-row-parent', 'parent');
+  title.textContent = 'Wind';
+
+  container.classList.add('parent');
+  windContainer.classList.add('flex-row-parent');
   windGustContainer.classList.add('flex-column-child');
   windSpeedContainer.classList.add('flex-column-child');
   windDirContainer.classList.add('flex-column-child');
@@ -142,7 +155,10 @@ function createWindContent(windgust, windspeed, winddir) {
   windGustValue.classList.add('info-value');
   windSpeedValue.classList.add('info-value');
   windDirValue.classList.add('info-value');
+  title.classList.add('info-header', 'section-title');
 
+  container.appendChild(title);
+  container.appendChild(windContainer);
   windContainer.appendChild(windGustContainer);
   windGustContainer.appendChild(windGustHeader);
   windGustContainer.appendChild(windGustValue);
@@ -154,7 +170,7 @@ function createWindContent(windgust, windspeed, winddir) {
   windDirContainer.appendChild(windDirValue);
 
   // append to body container then
-  mainContainer.appendChild(windContainer);
+  mainContainer.appendChild(container);
 }
 
 function createPrecipContent(precip, precipProb) {
