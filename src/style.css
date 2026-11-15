@@ -22,6 +22,15 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 1rem 2rem;
+  border-bottom: var(--parent-border);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: fit-content;
+  background: transparent;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 body {
