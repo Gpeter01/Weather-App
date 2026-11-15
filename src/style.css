@@ -74,7 +74,6 @@ main {
 }
 
 .flex-column-parent {
-  border: 1px solid black;
   height: fit-content;
   width: fit-content;
 }
@@ -84,7 +83,7 @@ main {
   gap: 1rem;
 }
 
-.info-header {
+.info-header, .location {
   font-size: 0.95rem;
   font-family: 'Times New Roman', Times, serif;
   font-style: italic;
@@ -96,6 +95,11 @@ main {
 
 .info-value {
   font-size: 1.2rem;
+}
+
+.location {
+  font-size: 1.5rem;
+  text-align: center;
 }
 
 .temp {

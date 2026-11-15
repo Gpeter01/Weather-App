@@ -2,8 +2,21 @@ import { sortNullResponse } from "./sort.js";
 
 export { createWeatherBody };
 
-// This is the container to have it all appended to
 const mainContainer = document.querySelector('main');
+
+function createResolvedLocationAdress(location) {
+  const mainLocationContainer = document.createElement('div');
+  const mainLocationHeader = document.createElement('p');
+
+  mainLocationContainer.appendChild(mainLocationHeader);
+
+  mainLocationHeader.textContent = location;
+
+  mainLocationContainer.classList.add('parent', 'flex-column-child');
+  mainLocationHeader.classList.add('location');
+
+  mainContainer.appendChild(mainLocationContainer);
+}
 
 function createTempContent(temp) {
   const tempContainer = document.createElement('div');
@@ -242,6 +255,7 @@ function createWeatherBody(response) {
 
   clearMainContainer();
   
+  createResolvedLocationAdress(weather.resolvedAddress);
   createTempContent(weather.currentConditions.temp);
   createFeelsLike(weather.currentConditions.feelslike);
   createLocationContent(weather.longitude, weather.latitude);
