@@ -1,0 +1,135 @@
+:root {
+  --svg-width: 25vw;
+  --circumference: calc(2 * 50px * 3.14159265359);
+  --glass-background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.25),
+    rgba(255,255,255,.08));
+  --parent-box-shadow: 0 8px 30px rgba(0,0,0,.2), inset 0 1px 1px rgba(255,255,255,.4);
+  --backdrop-filter: blur(24px) saturate(180%);
+  --parent-border: 1px solid rgba(255,255,255,.25);
+  --parent-border-radius: 24px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Monaco, 'Times New Roman', Times, serif;
+}
+
+main { 
+  display: grid;
+  grid-template-columns: 50vw;
+  justify-content: center;
+  gap: 3rem;
+  width: 100%;
+  height: fit-content;
+  padding: 1rem;
+}
+
+.flex-column-parent, .flex-column-child, .flex-row-parent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.parent {
+  background: var(--glass-background);
+  box-shadow: var(--parent-box-shadow);
+  backdrop-filter: var(--backdrop-filter);
+  border: var(--parent-border);
+  border-radius: var(--parent-border-radius);
+}
+
+.flex-row-parent {
+  flex-grow: 1;
+  flex-shrink: 1;
+  justify-content: space-around;
+  padding: 1rem 0;
+  gap: 1rem;
+  flex-direction: row;
+}
+
+.flex-column-parent {
+  border: 1px solid black;
+  height: fit-content;
+  width: fit-content;
+}
+
+.flex-column-child {
+  padding: 2rem;
+  gap: 1rem;
+}
+
+.info-header {
+  font-size: 0.95rem;
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+}
+
+.info-header, .info-value {
+  text-align: center;
+}
+
+.info-value {
+  font-size: 1.2rem;
+}
+
+.temp {
+  font-size: 5rem;
+}
+
+.temp-container {
+  margin: auto;
+  width: fit-content;
+  margin-bottom: 7rem;
+}
+
+button {
+  padding: 1rem 2rem;
+  border-radius: 999px;
+}
+
+svg {
+  height: var(--svg-width);
+  width: var(--svg-width);
+}
+
+circle {
+  stroke: green;
+  stroke-width: 4px;
+  stroke-linecap: round;
+  fill: transparent;
+  animation: grow 0.75s linear infinite alternate, spin 1.5s linear infinite alternate;
+}
+
+@keyframes grow {
+  from {
+      stroke-dasharray: calc(var(--circumference) * 0.05), var(--circumference);
+  }
+  to {
+      stroke-dasharray: calc(var(--circumference) * 0.25), var(--circumference);
+  }
+}
+
+@keyframes spin {
+  from {
+      stroke-dashoffset: 0;
+  }
+  to {
+      stroke-dashoffset: calc(var(--circumference) * -0.95);
+  }
+}
