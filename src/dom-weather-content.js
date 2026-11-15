@@ -1,3 +1,5 @@
+import { sortNullResponse } from "./sort.js";
+
 export { createWeatherBody };
 
 // This is the container to have it all appended to
@@ -231,7 +233,9 @@ function createConditionsContent(conditions) {
   mainContainer.appendChild(conditionsContainer);
 }
 
-function createWeatherBody(weather) {
+function createWeatherBody(response) {
+  const weather = sortNullResponse(response);
+  
   createTempContent(weather.currentConditions.temp);
   createFeelsLike(weather.currentConditions.feelslike);
   createLocationContent(weather.longitude, weather.latitude);
