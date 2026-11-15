@@ -36,9 +36,11 @@ function addSpinningSVGStyle() {
 
 function createSpinningSVG() {
   dialog.innerHTML = `
-  <svg viewBox="0 0 200 200">
-    <circle cx="100" cy="100" r="50"/>
+ <div class='svg-container'>
+   <svg viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="80"/>
   </svg>
+ </div>
   <p>Wait a moment</p>`;
 }
 
