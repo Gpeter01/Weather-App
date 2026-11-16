@@ -1,5 +1,5 @@
 import { getLocation, getMeasureSystem } from "./user-input-processing.js";
-import { weatherApiRes } from "./weather-api.js";
+import { weatherApiRes } from "./weather-api-resolution.js";
 import { closeDialog, displayForm, displaySVG} from "./dialog-content.js";
 
 export { getDialogClick, openFormDialog }

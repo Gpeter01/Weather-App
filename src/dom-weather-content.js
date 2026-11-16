@@ -18,7 +18,7 @@ function createResolvedLocationAdress(location) {
   mainContainer.appendChild(mainLocationContainer);
 }
 
-function createTempContent(temp) {
+function createTempContent(temp, unit) {
   const tempContainer = document.createElement('div');
   const tempHeader = document.createElement('p');
   const tempValue = document.createElement('p');
@@ -26,8 +26,8 @@ function createTempContent(temp) {
   tempContainer.appendChild(tempHeader);
   tempContainer.appendChild(tempValue);
 
-  tempHeader.textContent = 'Tempearature';
-  tempValue.textContent = temp;
+  tempHeader.textContent = `Temperature (${unit})`;
+  tempValue.textContent = temp + '°';
 
   // add class names
   tempContainer.classList.add('flex-column-child', 'parent', 'temp-container');
@@ -39,7 +39,7 @@ function createTempContent(temp) {
   // I then need to append to the weather container/body
 }
 
-function createFeelsLike(feelsLike) {
+function createFeelsLike(feelsLike, unit) {
   const feelsLikeContainer = document.createElement('div');
   const feelsLikeHeader = document.createElement('p');
   const feelsLikeValue = document.createElement('p');
@@ -47,8 +47,8 @@ function createFeelsLike(feelsLike) {
   feelsLikeContainer.appendChild(feelsLikeHeader);
   feelsLikeContainer.appendChild(feelsLikeValue);
 
-  feelsLikeHeader.textContent = 'Feels Like';
-  feelsLikeValue.textContent = feelsLike;
+  feelsLikeHeader.textContent =`Feels Like (${unit})`;
+  feelsLikeValue.textContent = feelsLike + '°';
 
   feelsLikeContainer.classList.add('flex-column-child', 'parent');
   feelsLikeHeader.classList.add('info-header');
@@ -108,7 +108,7 @@ function createHumidityContent(humidity) {
   humidityContainer.appendChild(humidityHeader);
   humidityContainer.appendChild(humidityValue);
 
-  humidityHeader.textContent = `Humidity`;
+  humidityHeader.textContent = `Relative Humidity (%)`;
   humidityValue.textContent = humidity;
 
   humidityContainer.classList.add('flex-column-child', 'parent');
@@ -119,7 +119,7 @@ function createHumidityContent(humidity) {
   // append to the body container
 }
 
-function createWindContent(windgust, windspeed, winddir) {
+function createWindContent(windgust, windspeed, winddir, windUnit) {
   const container = document.createElement('div');
   const windContainer = document.createElement('div');
   const windGustContainer = document.createElement('div');
@@ -134,9 +134,9 @@ function createWindContent(windgust, windspeed, winddir) {
   const windDirValue = document.createElement('p');
   const title = document.createElement('p');
 
-  windGustHeader.innerHTML = `Wind Gust`;
-  windSpeedHeader.innerHTML = `Wind Speed`;
-  windDirHeader.innerHTML = `Wind Air`;
+  windGustHeader.innerHTML = `Wind Gust Speed (${windUnit.windgust})`;
+  windSpeedHeader.innerHTML = `Wind Speed (${windUnit.windspeed})`;
+  windDirHeader.innerHTML = `Wind Direction (${windUnit.winddir})`;
 
   windGustValue.textContent = windgust;
   windSpeedValue.textContent = windspeed;
@@ -173,7 +173,7 @@ function createWindContent(windgust, windspeed, winddir) {
   mainContainer.appendChild(container);
 }
 
-function createPrecipContent(precip, precipProb) {
+function createPrecipContent(precip, precipProb, unit) {
   const container = document.createElement('div');
   const precipContainer = document.createElement('div');
   const precipProbContainer = document.createElement('div');
@@ -183,10 +183,10 @@ function createPrecipContent(precip, precipProb) {
   const precipProbHeader = document.createElement('p');
   const precipProbValue = document.createElement('p');
 
-  precipHeader.textContent = `Precipitation`;
+  precipHeader.textContent = `Precipitation (${unit})`;
   precipValue.textContent = precip;
 
-  precipProbHeader.textContent = `Precipitation Probability`;
+  precipProbHeader.textContent = `Precipitation Probability (%)`;
   precipProbValue.textContent = precipProb;
 
   container.classList.add('flex-row-parent', 'parent');
@@ -208,12 +208,12 @@ function createPrecipContent(precip, precipProb) {
   mainContainer.appendChild(container)
 }
 
-function createPressureContent(pressure) {
+function createPressureContent(pressure, unit) {
   const pressureContainer = document.createElement('div');
   const pressureHeader = document.createElement('p');
   const pressureValue = document.createElement('p');
 
-  pressureHeader.innerHTML = `Pressure`;
+  pressureHeader.innerHTML = `Sea-level Atmospheric Pressure (${unit})`;
   pressureValue.textContent = pressure;
 
   pressureContainer.classList.add('flex-column-child', 'parent');
@@ -226,12 +226,12 @@ function createPressureContent(pressure) {
   mainContainer.appendChild(pressureContainer);
 }
 
-function createVisibContent(visibility) {
+function createVisibContent(visibility, unit) {
   const visibContainer = document.createElement('div');
   const visibHeader = document.createElement('p');
   const visibValue = document.createElement('p');
   
-  visibHeader.innerHTML = `Visiblity`;
+  visibHeader.innerHTML = `Visiblity (${unit})`;
   visibValue.textContent = visibility;
   
   visibContainer.appendChild(visibHeader);
@@ -262,7 +262,7 @@ function createConditionsContent(conditions) {
   mainContainer.appendChild(conditionsContainer);
 }
 
-function createAdditionalInfo(aqius, cloudcover, snowdepth) {
+function createAdditionalInfo(aqius, cloudcover, snowdepth, snowDepthUnit) {
   const container = document.createElement('div');
   const additionalInfoContainer = document.createElement('div');
   // I am adding containers for snowdepth, aqius and cloudcover
@@ -279,9 +279,9 @@ function createAdditionalInfo(aqius, cloudcover, snowdepth) {
 
   const title = document.createElement('p');
 
-  aqiusHeader.textContent = 'aqius';
-  cloudCoverHeader.textContent = 'Cloud Cover';
-  snowDepthHeader.textContent = 'Snow Depth';
+  aqiusHeader.textContent = 'Air Quality Index (AQI)';
+  cloudCoverHeader.textContent = 'Cloud Cover (%)';
+  snowDepthHeader.textContent = `Snow Depth (${snowDepthUnit})`;
   title.textContent = 'Additional Info';
 
   aqiusValue.textContent = aqius;
@@ -347,22 +347,23 @@ function styleMainContainer() {
   mainContainer.classList.add('main');
 }
 
-function createWeatherBody(response) {
+function createWeatherBody(response, measureSystem) {
   const weather = sortNullResponse(response);
-
+  const system = measureSystem();
+  
   clearMainContainer();
   
   createResolvedLocationAdress(weather.resolvedAddress);
-  createTempContent(weather.currentConditions.temp);
-  createFeelsLike(weather.currentConditions.feelslike);
+  createTempContent(weather.currentConditions.temp, system.temp);
+  createFeelsLike(weather.currentConditions.feelslike, system.temp);
   createLocationContent(weather.longitude, weather.latitude);
   createHumidityContent(weather.currentConditions.humidity);
-  createWindContent(weather.currentConditions.windgust, weather.currentConditions.windspeed, weather.currentConditions.winddir);
-  createPrecipContent(weather.currentConditions.precip, weather.currentConditions.precipprob);
-  createPressureContent(weather.currentConditions.pressure);
-  createVisibContent(weather.currentConditions.visibility);
+  createWindContent(weather.currentConditions.windgust, weather.currentConditions.windspeed, weather.currentConditions.winddir, system.wind);
+  createPrecipContent(weather.currentConditions.precip, weather.currentConditions.precipprob, system.precip);
+  createPressureContent(weather.currentConditions.pressure, system.pressure);
+  createVisibContent(weather.currentConditions.visibility, system.visibility);
   createConditionsContent(weather.currentConditions.conditions);
-  createAdditionalInfo(weather.currentConditions.aqius, weather.currentConditions.cloudcover, weather.currentConditions.snowdepth);
+  createAdditionalInfo(weather.currentConditions.aqius, weather.currentConditions.cloudcover, weather.currentConditions.snowdepth, system.snowdepth);
 
   // Disclaimer
   createNoteContent();

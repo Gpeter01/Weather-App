@@ -1,5 +1,6 @@
 import { createWeatherBody } from "./dom-weather-content.js";
 import { clearDialog } from "./dialog-content.js";
+import { decideMeasuringSystem } from "./user-input-processing.js";
 
 export { weatherApiRes } 
 
@@ -10,6 +11,7 @@ async function weatherApiRes(city, country, measureSystem) {
   const weatherApi = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/' + location + '/today?unitGroup=' + measureSystem + '&include=current';
   const response = await fetch(weatherApi);
 
+  
   if (!response.ok) {
     console.log(response);
     // here it is here, I am still working on it though, but this does work
@@ -17,9 +19,10 @@ async function weatherApiRes(city, country, measureSystem) {
     return;
     // I'd also stop the spinner here, ideally before displaying the error in question
   }
-
+  
   const responseJSON = await response.json();
-  createWeatherBody(responseJSON);
+  console.log(responseJSON);
+  createWeatherBody(responseJSON, decideMeasuringSystem);
   clearDialog();
   return;
 }

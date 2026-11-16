@@ -1,7 +1,11 @@
-// Let's check something out and see just what the visual api has in store for us
-async function api () {
-  const response = await fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Lagos/today?unitGroup=metric&include=hours,current');
-  const responseJSON = await response.json();
-  console.log(responseJSON);
-}
-api();
+import './style.css'
+import { getDialogClick, openFormDialog } from './event.js';
+import { createWelcomeBody } from './welcome.js';
+
+const button = document.querySelector('header button');
+button.addEventListener('click', openFormDialog);
+
+const dialog = document.querySelector('dialog');
+dialog.addEventListener('click', getDialogClick);
+
+createWelcomeBody();
