@@ -262,6 +262,81 @@ function createConditionsContent(conditions) {
   mainContainer.appendChild(conditionsContainer);
 }
 
+function createAdditionalInfo(aqius, cloudcover, snowdepth) {
+  const container = document.createElement('div');
+  const additionalInfoContainer = document.createElement('div');
+  // I am adding containers for snowdepth, aqius and cloudcover
+  const aqiusContainer = document.createElement('div');
+  const cloudCoverContainer = document.createElement('div');
+  const snowdDepthContainer = document.createElement('div');
+
+  const aqiusHeader = document.createElement('p');
+  const aqiusValue = document.createElement('p');
+  const cloudCoverHeader = document.createElement('p');
+  const cloudCoverValue = document.createElement('p');
+  const snowDepthHeader = document.createElement('p');
+  const snowDepthValue = document.createElement('p');
+
+  const title = document.createElement('p');
+
+  aqiusHeader.textContent = 'aqius';
+  cloudCoverHeader.textContent = 'Cloud Cover';
+  snowDepthHeader.textContent = 'Snow Depth';
+  title.textContent = 'Additional Info';
+
+  aqiusValue.textContent = aqius;
+  cloudCoverValue.textContent = cloudcover;
+  snowDepthValue.textContent = snowdepth;
+
+  aqiusContainer.appendChild(aqiusHeader);
+  aqiusContainer.appendChild(aqiusValue);
+
+  cloudCoverContainer.appendChild(cloudCoverHeader);
+  cloudCoverContainer.appendChild(cloudCoverValue);
+
+  snowdDepthContainer.appendChild(snowDepthHeader);
+  snowdDepthContainer.appendChild(snowDepthValue);
+
+  additionalInfoContainer.appendChild(aqiusContainer);
+  additionalInfoContainer.appendChild(cloudCoverContainer);
+  additionalInfoContainer.appendChild(snowdDepthContainer);
+
+  container.appendChild(title);
+  container.appendChild(additionalInfoContainer);
+
+  mainContainer.appendChild(container);
+
+  container.classList.add('parent');
+  additionalInfoContainer.classList.add('flex-row-parent');
+  aqiusContainer.classList.add('flex-column-child');
+  cloudCoverContainer.classList.add('flex-column-child');
+  snowdDepthContainer.classList.add('flex-column-child');
+  aqiusHeader.classList.add('info-header');
+  aqiusValue.classList.add('info-value');
+  cloudCoverHeader.classList.add('info-header');
+  cloudCoverValue.classList.add('info-value');
+  snowDepthHeader.classList.add('info-header');
+  snowDepthValue.classList.add('info-value');
+  title.classList.add('info-header', 'section-title');
+}
+
+function createNoteContent() {
+  const disclaimerContainer = document.createElement('div');
+  const noteOne = document.createElement('p');
+  const noteTwo = document.createElement('p');
+
+  noteOne.textContent = `
+  Note: The video shown as the background here is not an actual representation of the current conditions of this location.`;
+  noteTwo.textContent = `
+  The scope of this project is limited for now but improvements are to be made to make it sophisticated enough to represent accurate weather conditions, stay tuned.`;
+
+  disclaimerContainer.classList.add('parent', 'flex-column-child');
+  disclaimerContainer.appendChild(noteOne);
+  disclaimerContainer.appendChild(noteTwo);
+
+  mainContainer.appendChild(disclaimerContainer);
+}
+
 function clearMainContainer() {
   mainContainer.innerHTML = '';
   styleMainContainer();
@@ -287,4 +362,8 @@ function createWeatherBody(response) {
   createPressureContent(weather.currentConditions.pressure);
   createVisibContent(weather.currentConditions.visibility);
   createConditionsContent(weather.currentConditions.conditions);
+  createAdditionalInfo(weather.currentConditions.aqius, weather.currentConditions.cloudcover, weather.currentConditions.snowdepth);
+
+  // Disclaimer
+  createNoteContent();
 }
