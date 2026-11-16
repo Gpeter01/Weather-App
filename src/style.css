@@ -40,13 +40,36 @@ body {
 }
 
 main { 
+  width: 100%;
+  height: fit-content;
+}
+
+.main {
   display: grid;
   grid-template-columns: 50vw;
   justify-content: center;
   gap: 3rem;
-  width: 100%;
-  height: fit-content;
   padding: 1rem;
+}
+
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black url('assets/welcome.jpeg') center / cover no-repeat;
+  width: 100%;
+  min-height: 80vh;
+}
+div.welcome-glass-container {
+  padding: 2rem;
+  border-radius: 0;
+}
+
+.welcome {
+  font-size: 4rem;
+  text-align: center;
+  color: white;
+  animation: move 2s linear infinite alternate;
 }
 
 .flex-column-parent, .flex-column-child, .flex-row-parent, footer, .button-container, .loader {
@@ -226,5 +249,14 @@ circle {
   }
   to {
       stroke-dashoffset: calc(var(--circumference) * -0.95);
+  }
+}
+
+@keyframes move {
+  0% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(3px);
   }
 }

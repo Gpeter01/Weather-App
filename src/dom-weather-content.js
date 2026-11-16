@@ -264,6 +264,12 @@ function createConditionsContent(conditions) {
 
 function clearMainContainer() {
   mainContainer.innerHTML = '';
+  styleMainContainer();
+}
+
+function styleMainContainer() {
+  mainContainer.classList.remove('welcome-container');
+  mainContainer.classList.add('main');
 }
 
 function createWeatherBody(response) {
