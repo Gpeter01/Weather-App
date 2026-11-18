@@ -1,7 +1,7 @@
-import { appCurrentCondtionsDataQueries } from "./storage.js";
 export { sortNullResponse }
 
 function sortNullResponse(returnedJSON) {
+  // sort undefined responses first
   const response = sortUndefinedResponse(returnedJSON);
   const currentConditionsKeys  = Object.keys(response.currentConditions);
   currentConditionsKeys.forEach((key) => {
@@ -11,8 +11,25 @@ function sortNullResponse(returnedJSON) {
 }
 
 function sortUndefinedResponse(response) {
+ // This is a troubleshooting array to catch values that sometimes may turn out as undefined in certain locations
+ // precautions first, if you know what I mean
+  const appCurrentCondtionsDataQueries = [
+    'aqius',
+    'cloudcover', 
+    'snow depth', 
+    'temp', 
+    'feelslike', 
+    'humidity', 
+    'windgust', 
+    'windspeed', 
+    'winddir', 
+    'precip', 
+    'precipprob', 
+    'pressure', 
+    'visibility',
+  ]
   appCurrentCondtionsDataQueries.forEach((query) => {
     response.currentConditions[query] !== undefined ? response.currentConditions[query] : response.currentConditions[query] = 'Not available';
   });
   return response;
-}
+}j
