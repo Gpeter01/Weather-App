@@ -375,18 +375,18 @@ function createBackgroundVideo(icon) {
 function createCheckBox(name) {
   const container = document.createElement('div');
   container.innerHTML = `
-  <label>
-    <input type="radio" class="measurement-system" name="system" value="metric">
+  <label for='metric-system'>
+    <input type="radio" class="metric-system" name="system" value="metric">
     Metric
   </label>
-  <label>
-    <input type="radio" class="measurement-system" name="system" value="us">
+  <label for='imperial-system'>
+    <input type="radio" class="imperial-system" name="system" value="us">
     Imperial
   </label>`;
   container.classList.add('parent', 'flex-column-child', 'checkbox');
   
   mainContainer.appendChild(container);
-
+  
   const currentSystem = document.querySelector(`[type='radio'][value=${name}]`);
   currentSystem.checked = true;
 }
@@ -403,7 +403,7 @@ function styleMainContainer() {
 
 export function createWeatherBody(response, measureSystem) {
   const weather = sortNullResponse(response);
-  const { system, systemName } = measureSystem();
+  const { system, systemName } = measureSystem;
   
   clearMainContainer();
   

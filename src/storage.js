@@ -1,44 +1,24 @@
-export { measureSystem, appCurrentCondtionsDataQueries }
+import { state } from "./state.js"
 
-// Measuring System
-const metric = {
-  precip: 'mm',
-  pressure: 'mb/hPa',
-  snowdepth: 'cm',
-  temp: '°C',
-  visibility: 'km',
-  wind: {
-    winddir: '°',
-    windgust: 'kph',
-    windspeed: 'kph',
-  },
-};
+export { pushStateToStorage, checkStorageAvailability };
 
-const imperial = {
-  precip: 'in',
-  pressure: 'mb/hPa',
-  snowdepth: 'in',
-  temp: '°F',
-  visibility: 'mi',
-  wind: {
-    winddir: '°',
-    windgust: 'mph',
-    windspeed: 'mph',
-  },
-};
+function pushStateToStorage() {
+  if (!state.isStorageAvailable) {
+    return;
+  }
+  state.isWeatherDataInStorage = true;
+  localStorage.setItem('state', JSON.stringify(state));
+}
 
-const measureSystem = { metric: metric, us: imperial };
-
-// This is a troubleshooting array to catch values that sometimes may turn out as undefined in certain locations
-const appCurrentCondtionsDataQueries = [
-  'temp', 
-  'feelslike',
-  'humidity',
-  'windgust',
-  'windspeed',
-  'winddir',
-  'precip',
-  'precipprob',
-  'pressure',
-  'visibility',
-]
+function checkStorageAvailability() {
+  try {
+    const experiment = 't minus one';
+    window.localStorage.setItem(experiment, experiment);
+    window.localStorage.removeItem(experiment);
+    state.isStorageAvailable = true;
+    return;
+  } catch (error) {
+    state.isStorageAvailable = false;
+    return;
+  }
+}

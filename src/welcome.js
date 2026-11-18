@@ -1,6 +1,12 @@
-export { createWelcomeBody }
+import { weatherApiRes } from "./weather-api-resolution.js";
+import { state, getStateFromStorage } from "./state.js";
+import { displaySVG } from "./dialog-content.js";
 
-function createWelcomeBody() {
+export function createWelcomeBody() {
+  getStateFromStorage();
+  if (state.isWeatherDataInStorage) {
+    getPreviousWeatherContent();
+  }
   const mainContainer = document.querySelector('main');
   const welcomeContainer = document.createElement('div');
   const welcomeText = document.createElement('p');
@@ -12,4 +18,9 @@ function createWelcomeBody() {
   welcomeText.classList.add('welcome');
   welcomeContainer.classList.add('parent', 'welcome-glass-container');
   mainContainer.classList.add('welcome-container');
+}
+
+function getPreviousWeatherContent() {
+  weatherApiRes();
+  displaySVG();
 }

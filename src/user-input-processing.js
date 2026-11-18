@@ -1,25 +1,30 @@
-import { state } from "./state.js";
-import { measureSystem } from "./measurement-system.js";
+import { pushToState, state } from "./state.js";
 
-export { getLocation, getMeasureSystem, decideMeasuringSystem }
+export { getLocation, getMeasureSystem, getCheckBoxValue }
 
 function getLocation() {
   const city = document.querySelector('.city');
   const country = document.querySelector('.country');
-  return { city: city.value, country: country.value };
+  // I'd need to do some processing here first
+  pushToState('city', city.value);
+  pushToState('country', country.value);
 }
 
 function getMeasureSystem() {
   const measureSystem = document.querySelector('dialog .system');
-  setMeasureSystemState(measureSystem.value);
-  return measureSystem.value;
+  // some processing is to be also done here, just to prevent errors from getting into the state
+  pushToState('system', measureSystem.value);
 }
 
-// This needs some more work to be done to make it even more correct
-function setMeasureSystemState(value) {
-  state.system = value;
+function getCheckBoxValue(checkBox) {
+  if (state.system == checkBox.value) {
+    state.isUserInputValid = false;
+    return;
+  }
+  pushToState('system', checkBox.value);
+  state.isUserInputValid = true;
 }
 
-function decideMeasuringSystem() {
-  return { system: measureSystem[state.system], systemName: state.system };
-}
+// run validity check
+// start the loader spinner thingy
+// query api --- this is it below here

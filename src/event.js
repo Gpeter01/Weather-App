@@ -1,8 +1,8 @@
-import { getLocation, getMeasureSystem } from "./user-input-processing.js";
-import { weatherApiRes } from "./weather-api-resolution.js";
-import { closeDialog, displayForm, displaySVG} from "./dialog-content.js";
+import { getLocation, getMeasureSystem, getCheckBoxValue } from "./user-input-processing.js";
+import { renderWeatherBody } from "./weather-api-resolution.js";
+import { closeDialog, displayForm } from "./dialog-content.js";
 
-export { getDialogClick, openFormDialog }
+export { getDialogClick, openFormDialog, getCheckBoxClick }
 
 function getDialogClick(event) {
   const button = event.target.closest('[data-action]');
@@ -14,14 +14,10 @@ function getDialogClick(event) {
     return;
   }
   if (button.dataset.action === 'submit') {
-    const { city, country } = getLocation();
-    const measureSystem = getMeasureSystem();
+    getLocation();
+    getMeasureSystem();
 
-    weatherApiRes(city, country, measureSystem);
-    displaySVG();
-    // run validity check
-    // start the loader spinner thingy
-    // query api --- this is it below here
+    renderWeatherBody();
     return;
   }
 }
@@ -32,4 +28,14 @@ function openFormDialog(event) {
     return;
   }
   displayForm();
+}
+
+function getCheckBoxClick(event) {
+  const checkBox = event.target.closest(`[type='radio']`);
+  if (!checkBox) {
+    return;
+  }
+
+  getCheckBoxValue(checkBox);
+  renderWeatherBody();
 }
