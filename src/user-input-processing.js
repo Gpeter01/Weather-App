@@ -1,5 +1,5 @@
 import { state } from "./state.js";
-import { measureSystem } from "./storage.js";
+import { measureSystem } from "./measurement-system.js";
 
 export { getLocation, getMeasureSystem, decideMeasuringSystem }
 
@@ -10,8 +10,8 @@ function getLocation() {
 }
 
 function getMeasureSystem() {
-  const measureSystem = document.querySelector('.system');
-  setMeasureSystemState(measureSystem.value)
+  const measureSystem = document.querySelector('dialog .system');
+  setMeasureSystemState(measureSystem.value);
   return measureSystem.value;
 }
 
@@ -21,5 +21,5 @@ function setMeasureSystemState(value) {
 }
 
 function decideMeasuringSystem() {
-  return measureSystem[state.system];
+  return { system: measureSystem[state.system], systemName: state.system };
 }

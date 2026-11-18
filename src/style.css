@@ -40,6 +40,7 @@ body {
 }
 
 main { 
+  position: relative;
   width: 100%;
   height: fit-content;
 }
@@ -172,12 +173,12 @@ dialog h3 {
   width: 100%;
 }
 
-label {
+dialog label {
   margin-top: 1rem;
   font-family: 'Times New Roman', Times, serif;
 }
 
-input, select {
+dialog input, dialog select {
   font-family: 'Times New Roman', Times, serif;
   display: block;
   border: 1px solid black;
@@ -220,6 +221,29 @@ footer {
   font-family: 'Times New Roman', Times, serif;
   font-style: italic;
   font-size: 0.9rem;
+}
+
+.background-video {
+  position: fixed;
+  top: 0;
+  inset: 0;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.checkbox {
+  align-items: flex-start;
+  position: fixed;
+  width: fit-content;
+  top: 30%;
+  right: 1%;
+  padding: 2rem;
+}
+
+.checkbox label {
+  display: flex;
+  gap: 1rem;
 }
 
 .svg-container {

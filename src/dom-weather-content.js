@@ -1,6 +1,12 @@
 import { sortNullResponse } from "./sort.js";
-
-export { createWeatherBody };
+import cloudyDay from './assets/weather-videos/cloudy.webm';
+import clearDay from './assets/weather-videos/clear-day.webm';
+import clearNight from './assets/weather-videos/clear-night.webm';
+import foggyDay from './assets/weather-videos/fog.webm';
+import partlyCloudyNight from './assets/weather-videos/partly-cloudy-night.webm';
+import rainyDay from './assets/weather-videos/rain.webm';
+import snowyDay from './assets/weather-videos/snow.webm';
+import windyDay from './assets/weather-videos/windy.webm';
 
 const mainContainer = document.querySelector('main');
 
@@ -337,6 +343,54 @@ function createNoteContent() {
   mainContainer.appendChild(disclaimerContainer);
 }
 
+function createBackgroundVideo(icon) {
+  const backgroundVideo = {
+    snow: snowyDay,
+    rain: rainyDay,
+    fog: foggyDay,
+    wind: windyDay,
+    cloudy: cloudyDay,
+    'partly-cloudy-day': cloudyDay,
+    'partly-cloudy-night': partlyCloudyNight,
+    'clear-day': clearDay,
+    'clear-night': clearNight,
+  }
+  const videoHTML = document.createElement('video');
+  const source = document.createElement('source');
+
+  source.src = backgroundVideo[icon];
+  source.type = 'video/webm';
+
+  videoHTML.autoplay = true;
+  videoHTML.muted = true;
+  videoHTML.loop = true;
+  videoHTML.playsInline = true;
+
+  videoHTML.appendChild(source);
+  videoHTML.classList.add('background-video');
+  
+  mainContainer.appendChild(videoHTML);
+}
+
+function createCheckBox(name) {
+  const container = document.createElement('div');
+  container.innerHTML = `
+  <label>
+    <input type="radio" class="measurement-system" name="system" value="metric">
+    Metric
+  </label>
+  <label>
+    <input type="radio" class="measurement-system" name="system" value="us">
+    Imperial
+  </label>`;
+  container.classList.add('parent', 'flex-column-child', 'checkbox');
+  
+  mainContainer.appendChild(container);
+
+  const currentSystem = document.querySelector(`[type='radio'][value=${name}]`);
+  currentSystem.checked = true;
+}
+
 function clearMainContainer() {
   mainContainer.innerHTML = '';
   styleMainContainer();
@@ -347,12 +401,13 @@ function styleMainContainer() {
   mainContainer.classList.add('main');
 }
 
-function createWeatherBody(response, measureSystem) {
+export function createWeatherBody(response, measureSystem) {
   const weather = sortNullResponse(response);
-  const system = measureSystem();
+  const { system, systemName } = measureSystem();
   
   clearMainContainer();
   
+  createBackgroundVideo(weather.currentConditions.icon);
   createResolvedLocationAdress(weather.resolvedAddress);
   createTempContent(weather.currentConditions.temp, system.temp);
   createFeelsLike(weather.currentConditions.feelslike, system.temp);
@@ -364,6 +419,7 @@ function createWeatherBody(response, measureSystem) {
   createVisibContent(weather.currentConditions.visibility, system.visibility);
   createConditionsContent(weather.currentConditions.conditions);
   createAdditionalInfo(weather.currentConditions.aqius, weather.currentConditions.cloudcover, weather.currentConditions.snowdepth, system.snowdepth);
+  createCheckBox(systemName);
 
   // Disclaimer
   createNoteContent();
