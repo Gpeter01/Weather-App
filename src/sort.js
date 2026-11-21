@@ -27,9 +27,10 @@ function sortUndefinedResponse(response) {
     'precipprob', 
     'pressure', 
     'visibility',
+    'datetime',
   ]
   appCurrentCondtionsDataQueries.forEach((query) => {
     response.currentConditions[query] !== undefined ? response.currentConditions[query] : response.currentConditions[query] = 'Not available';
   });
   return response;
-}j
+}
