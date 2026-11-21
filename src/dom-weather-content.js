@@ -250,6 +250,24 @@ function createVisibContent(visibility, unit) {
   mainContainer.appendChild(visibContainer);
 }
 
+function createDateTimeContent(datetime) {
+  const dateTimeContainer = document.createElement('div');
+  const dateTimeHeader = document.createElement('p');
+  const dateTimeValue = document.createElement('p');
+  
+  dateTimeHeader.innerHTML = `Last Checked`;
+  dateTimeValue.textContent = datetime;
+  
+  dateTimeContainer.appendChild(dateTimeHeader);
+  dateTimeContainer.appendChild(dateTimeValue);
+  
+  dateTimeContainer.classList.add('flex-column-child', 'parent');
+  dateTimeHeader.classList.add('info-header');
+  dateTimeValue.classList.add('info-value');
+  // append to body of container
+  mainContainer.appendChild(dateTimeContainer);
+}
+
 function createConditionsContent(conditions) {
   const conditionsContainer = document.createElement('div');
   const conditionsHeader = document.createElement('p');
@@ -330,15 +348,45 @@ function createNoteContent() {
   const disclaimerContainer = document.createElement('div');
   const noteOne = document.createElement('p');
   const noteTwo = document.createElement('p');
+  const noteThree = document.createElement('p');
+  const noteFour = document.createElement('p');
+  const noteFive = document.createElement('p');
+  const noteSix = document.createElement('p');
+  const noteSeven = document.createElement('p');
+  const noteEight = document.createElement('p');
 
   noteOne.textContent = `
   Note: The video shown as the background here is not an actual representation of the current conditions of this location.`;
   noteTwo.textContent = `
   The scope of this project is limited for now but improvements are to be made to make it sophisticated enough to represent accurate weather conditions, stay tuned.`;
 
+  noteThree.textContent = `
+  Also note that resoled address shown at the top of the page varies, so it could be russian if you search for the weather in Moscow, Russia
+  or even chinese if you are looking for the weather in Beijing, China`;
+
+  noteFour.textContent = `
+  Info: The symbol/unit in the bracked tells the unit of measurement`;
+
+  noteFive.textContent = `
+  Though I call it current conditions, the api used in this project provides me with RECENT weather condtions, which of cource is not this precies moment, 
+  it counts as current conditions when you think about it though, bare with me`;
+
+  noteSix.textContent = `
+  The videos/media used in this project were gotten from Pixaby and Pexels, check them out.`;
+
+  noteSeven.textContent = `The svgs used are from svgrepo`;
+
+  noteEight.textContent = `I hope you love it as much as I do. Enjoy your stay`;
+
   disclaimerContainer.classList.add('parent', 'flex-column-child');
+  disclaimerContainer.appendChild(noteFour);
   disclaimerContainer.appendChild(noteOne);
   disclaimerContainer.appendChild(noteTwo);
+  disclaimerContainer.appendChild(noteThree);
+  disclaimerContainer.appendChild(noteFive);
+  disclaimerContainer.appendChild(noteSix);
+  disclaimerContainer.appendChild(noteSeven);
+  disclaimerContainer.appendChild(noteEight);
 
   mainContainer.appendChild(disclaimerContainer);
 }
@@ -377,11 +425,11 @@ function createCheckBox(name) {
   container.innerHTML = `
   <label for='metric-system'>
     <input type="radio" class="metric-system" name="system" value="metric">
-    Metric
+    Celcius
   </label>
   <label for='imperial-system'>
     <input type="radio" class="imperial-system" name="system" value="us">
-    Imperial
+    Fahrenheit
   </label>`;
   container.classList.add('parent', 'flex-column-child', 'checkbox');
   
@@ -418,6 +466,7 @@ export function createWeatherBody(response, measureSystem) {
   createPressureContent(weather.currentConditions.pressure, system.pressure);
   createVisibContent(weather.currentConditions.visibility, system.visibility);
   createConditionsContent(weather.currentConditions.conditions);
+  createDateTimeContent(weather.currentConditions.datetime);
   createAdditionalInfo(weather.currentConditions.aqius, weather.currentConditions.cloudcover, weather.currentConditions.snowdepth, system.snowdepth);
   createCheckBox(systemName);
 
