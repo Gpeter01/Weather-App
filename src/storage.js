@@ -3,9 +3,7 @@ import { state } from "./state.js"
 export { pushStateToStorage, checkStorageAvailability };
 
 function pushStateToStorage() {
-  if (!state.isStorageAvailable) {
-    return;
-  }
+  if (!state.isStorageAvailable) return;
   state.isWeatherDataInStorage = true;
   localStorage.setItem('state', JSON.stringify(state));
 }
