@@ -11,6 +11,12 @@
   --parent-border-radius: 24px;
 }
 
+@font-face {
+  font-family: 'MyRoboto';
+  src: url('assets/roboto-variablefont_wdthwght-webfont.woff2') format('woff2');
+  font-display: swap;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -35,7 +41,7 @@ header {
 
 body {
   min-height: 100vh;
-  font-family: Monaco, 'Times New Roman', Times, serif;
+  font-family: Monaco, 'MyRoboto', Arial, 'Times New Roman', Times, serif;
   line-height: 1.35;
 }
 
@@ -143,26 +149,62 @@ div.welcome-glass-container {
 }
 
 button {
-  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.5rem;
   border-radius: 999px;
+  font-family: 'MyRoboto', Arial, Helvetica, sans-serif;
+}
+
+button:hover {
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+}
+
+span {
+  display: inline-block;
+}
+
+button span {
+  margin-inline-end: 1rem;
+  height: 1rem;
+  width: 1rem;
 }
 
 .button-container {
   align-items: flex-end;
 }
 
+.button-container span {
+  margin: 0;
+}
+
+button[data-action='exit'] {
+  padding: 1rem;
+}
+
+button[data-action='exit']:hover {
+  outline: 3px solid red;
+}
+
 .form {
   width: 50vw;
   margin: auto;
-  padding: 2rem;
+  padding: 2rem 2rem 3rem;
   border-radius: var(--parent-border-radius);
   height: fit-content;
   overflow-y: auto;
 }
 
 .form::backdrop {
-  background: rgba(25, 20, 17, 0.3);
-  backdrop-filter: blur(3px);
+  background: rgba(25, 20, 17, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.invalid-input {
+  color: red;
+  text-align: center;
+  margin-bottom: 0.5rem;
 }
 
 dialog h3 {
@@ -171,24 +213,27 @@ dialog h3 {
 
 .submit {
   width: 100%;
+  color: white;
+  background: black;
+  font-family: 'MyRoboto', 'Times New Roman', Times, serif;
 }
 
 dialog label {
   margin-top: 1rem;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'MyRoboto', 'Times New Roman', Times, serif;
 }
 
 dialog input, dialog select {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'MyRoboto', 'Times New Roman', Times, serif;
   display: block;
   border: 1px solid black;
   margin: 0.1rem 0 1rem;
   border-radius: 0.5rem;
   height: 2rem;
-  width: 50%;
+  width: 70%;
 }
 
-input {
+dialog input {
   padding: 10px;
 }
 
@@ -213,8 +258,16 @@ footer {
 }
 
 .loader::backdrop {
-    background: rgba(25, 20, 17, 0.35);
-    backdrop-filter: blur(4px);
+    background: rgba(25, 20, 17, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+dialog .error {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-align: center;
+  color: red;
 }
 
 .loader p {
@@ -236,14 +289,29 @@ footer {
   align-items: flex-start;
   position: fixed;
   width: fit-content;
-  top: 30%;
+  bottom: 30%;
   right: 1%;
   padding: 2rem;
+  z-index: 1;
 }
 
 .checkbox label {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
+}
+
+.twitter-svg {
+  height: 1rem;
+  width: 1rem;
+}
+
+.twitter-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .svg-container {
@@ -288,5 +356,35 @@ circle {
   }
   100% {
     transform: translateY(3px);
+  }
+}
+
+@media (width < 700px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
+  .welcome {
+    font-size: 2rem;
+  }
+  footer p {
+    text-align: center;
+  }
+  .form {
+    width: 90%;
+  }
+  .checkbox {
+    padding: 1.25rem;
+    bottom: 10%;
+    font-size: 0.9rem;
+  }
+}
+
+@media (width < 550px) {
+  .main {
+    grid-template-columns: 95%;
+  }
+  .loader {
+    width: 60%;
   }
 }
