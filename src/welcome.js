@@ -4,9 +4,8 @@ import { displaySVG } from "./dialog-content.js";
 
 export function createWelcomeBody() {
   getStateFromStorage();
-  if (state.isWeatherDataInStorage) {
-    getPreviousWeatherContent();
-  }
+  if (state.isWeatherDataInStorage) getPreviousWeatherContent();
+  
   const mainContainer = document.querySelector('main');
   const welcomeContainer = document.createElement('div');
   const welcomeText = document.createElement('p');
@@ -18,6 +17,13 @@ export function createWelcomeBody() {
   welcomeText.classList.add('welcome');
   welcomeContainer.classList.add('parent', 'welcome-glass-container');
   mainContainer.classList.add('welcome-container');
+
+  setHeaderButtonFocus();
+}
+
+function setHeaderButtonFocus() {
+  const button = document.querySelector('header button');
+  button.focus();
 }
 
 function getPreviousWeatherContent() {
