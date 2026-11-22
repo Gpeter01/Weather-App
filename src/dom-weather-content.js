@@ -1,4 +1,5 @@
 import { sortNullResponse } from "./sort.js";
+import { svg } from "./assets/svg-assets.js";
 import cloudyDay from './assets/weather-videos/cloudy.webm';
 import clearDay from './assets/weather-videos/clear-day.webm';
 import clearNight from './assets/weather-videos/clear-night.webm';
@@ -219,7 +220,7 @@ function createPressureContent(pressure, unit) {
   const pressureHeader = document.createElement('p');
   const pressureValue = document.createElement('p');
 
-  pressureHeader.innerHTML = `Sea-level Atmospheric Pressure (${unit})`;
+  pressureHeader.textContent = `Sea-level Atmospheric Pressure (${unit})`;
   pressureValue.textContent = pressure;
 
   pressureContainer.classList.add('flex-column-child', 'parent');
@@ -237,7 +238,7 @@ function createVisibContent(visibility, unit) {
   const visibHeader = document.createElement('p');
   const visibValue = document.createElement('p');
   
-  visibHeader.innerHTML = `Visiblity (${unit})`;
+  visibHeader.textContent = `Visiblity (${unit})`;
   visibValue.textContent = visibility;
   
   visibContainer.appendChild(visibHeader);
@@ -354,6 +355,9 @@ function createNoteContent() {
   const noteSix = document.createElement('p');
   const noteSeven = document.createElement('p');
   const noteEight = document.createElement('p');
+  const span = document.createElement('span');
+  const twitterLink = document.createElement('a');
+  const noteNine = document.createElement('p');
 
   noteOne.textContent = `
   Note: The video shown as the background here is not an actual representation of the current conditions of this location.`;
@@ -378,6 +382,16 @@ function createNoteContent() {
 
   noteEight.textContent = `I hope you love it as much as I do. Enjoy your stay`;
 
+
+  span.innerHTML = svg.twitter;
+  span.classList.add('twitter-svg');
+  noteNine.appendChild(span);
+  noteNine.appendChild(twitterLink);
+  twitterLink.href = 'https://x.com/petercreatesall?s=11';
+  twitterLink.textContent = '@petercreatesall';
+
+  noteNine.classList.add('twitter-link');
+
   disclaimerContainer.classList.add('parent', 'flex-column-child');
   disclaimerContainer.appendChild(noteFour);
   disclaimerContainer.appendChild(noteOne);
@@ -387,6 +401,7 @@ function createNoteContent() {
   disclaimerContainer.appendChild(noteSix);
   disclaimerContainer.appendChild(noteSeven);
   disclaimerContainer.appendChild(noteEight);
+  disclaimerContainer.appendChild(noteNine);
 
   mainContainer.appendChild(disclaimerContainer);
 }
