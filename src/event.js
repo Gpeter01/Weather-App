@@ -1,4 +1,4 @@
-import { getLocation, getMeasureSystem, getCheckBoxValue, submitionVerification, checkCityInputValidity, checkCountryInputValidity } from "./user-input-processing.js";
+import { getLocation, getMeasureSystem, getCheckBoxValue, submissionVerification, checkCityInputValidity, checkCountryInputValidity } from "./user-input-processing.js";
 import { renderWeatherBody } from "./weather-api-resolution.js";
 import { closeDialog, displayForm } from "./dialog-content.js";
 
@@ -12,7 +12,7 @@ function getDialogClick(event) {
     return;
   }
   if (button.dataset.action === 'submit') {
-    submitionVerification();
+    submissionVerification();
     getLocation();
     getMeasureSystem();
     renderWeatherBody();

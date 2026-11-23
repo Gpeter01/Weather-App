@@ -7,7 +7,7 @@ export {
   checkCityInputValidity, 
   checkCountryInputValidity, 
   checkMeasurementSystemValidity, 
-  submitionVerification
+  submissionVerification
 };
 
 
@@ -67,7 +67,8 @@ function checkMeasurementSystemValidity() {
   return false;
 }
 
-function submitionVerification() {
+function submissionVerification() {
+  state.isUserInputValid = false;
   if (checkCityInputValidity()) return;
   if (checkCountryInputValidity()) return;
   if (checkMeasurementSystemValidity()) return;

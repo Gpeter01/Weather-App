@@ -9,9 +9,12 @@ export function createWelcomeBody() {
   const mainContainer = document.querySelector('main');
   const welcomeContainer = document.createElement('div');
   const welcomeText = document.createElement('p');
+  const welcomeDescription = document.createElement('p');
 
-  welcomeText.textContent = 'Welcome to WeatherMe, Enjoy your stay';
+  welcomeText.textContent = 'Find the sky over wherever you are.';
+  welcomeDescription.textContent = 'A little weather perspective for wherever the day takes you.';
   welcomeContainer.appendChild(welcomeText);
+  welcomeContainer.appendChild(welcomeDescription);
   mainContainer.appendChild(welcomeContainer);
 
   welcomeText.classList.add('welcome');

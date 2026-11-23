@@ -3,9 +3,7 @@ import { clearDialog, displaySVG, displayApiErrorResponse } from "./dialog-conte
 import { state } from "./state.js";
 import { measureSystem } from "./measurement-system.js";
 import { pushStateToStorage } from "./storage.js";
-import { apiErrorValues } from "./api-error.js";
-
-// Let's check something out and see just what the visual weather api has in store for us
+import { getApiErrorValues } from "./api-error.js";
 
 export function renderWeatherBody() {
   if (!state.isUserInputValid) return;
@@ -21,17 +19,17 @@ export async function weatherApiRes() {
     const response = await fetch(weatherApi);
     if (!response.ok) {
       clearDialog();
-      displayApiErrorResponse(apiErrorValues[response.status]);
+      displayApiErrorResponse(getApiErrorValues(response.status));
       return;
     }
-    pushStateToStorage();
     const responseJSON = await response.json();
+    pushStateToStorage();
     createWeatherBody(responseJSON, decideMeasuringSystem(system));
     clearDialog();
     return;
   } catch (error) {
     clearDialog();
-    displayApiErrorResponse('An error occured');
+    displayApiErrorResponse('An error occurred');
   }
 }
 

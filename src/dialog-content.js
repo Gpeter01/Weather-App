@@ -13,7 +13,7 @@ function createForm() {
   <div class="button-container">
     <button type="button" data-action='exit'><span>${svg.cancel}</span></button>
   </div>
-  <h3>Find the weather at a location of your choice</h2>
+  <h3>Find the weather at a location of your choice</h3>
   <label for="city">Enter a city:
   <input type="text" data-input='city' name='city' class="city" placeholder='London' minlength='0' required>
   </label>
@@ -24,7 +24,7 @@ function createForm() {
   <select name="system" class="system" required>
   <option value="null">Select</option>
   <option value="us">Fahrenheit</option>
-  <option value="metric">Celcius</option>
+  <option value="metric">Celsius</option>
   </select>
   </label>
   <p class='invalid-input'></p>
@@ -57,7 +57,7 @@ function createSpinningSVG() {
   <circle cx="100" cy="100" r="80"/>
   </svg>
   </div>
-  <p>Wait a moment</p>`;
+  <p>Reading the sky…</p>`;
 }
 
 function closeDialog() {

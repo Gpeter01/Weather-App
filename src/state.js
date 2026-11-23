@@ -15,6 +15,12 @@ function pushToState(key, prop) {
 function getStateFromStorage() {
   if (!state.isStorageAvailable) return;
   if (localStorage.getItem('state') === null) return;
-  state = JSON.parse(localStorage.getItem('state'));
-  state.isUserInputValid = false;
+  try {
+    const parsedState =  JSON.parse(localStorage.getItem('state'));
+    state = parsedState;
+    state.isUserInputValid = false;
+  } catch {
+    localStorage.removeItem('state');
+    return;
+  }
 }

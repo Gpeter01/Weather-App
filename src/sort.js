@@ -13,10 +13,10 @@ function sortNullResponse(returnedJSON) {
 function sortUndefinedResponse(response) {
  // This is a troubleshooting array to catch values that sometimes may turn out as undefined in certain locations
  // precautions first, if you know what I mean
-  const appCurrentCondtionsDataQueries = [
+  const appCurrentConditionsDataQueries = [
     'aqius',
     'cloudcover', 
-    'snow depth', 
+    'snowdepth', 
     'temp', 
     'feelslike', 
     'humidity', 
@@ -29,7 +29,7 @@ function sortUndefinedResponse(response) {
     'visibility',
     'datetime',
   ]
-  appCurrentCondtionsDataQueries.forEach((query) => {
+  appCurrentConditionsDataQueries.forEach((query) => {
     response.currentConditions[query] !== undefined ? response.currentConditions[query] : response.currentConditions[query] = 'Not available';
   });
   return response;

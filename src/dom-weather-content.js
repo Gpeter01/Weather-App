@@ -11,7 +11,7 @@ import windyDay from './assets/weather-videos/windy.webm';
 
 const mainContainer = document.querySelector('main');
 
-function createResolvedLocationAdress(location) {
+function createResolvedLocationAddress(location) {
   const mainLocationContainer = document.createElement('div');
   const mainLocationHeader = document.createElement('p');
 
@@ -36,14 +36,11 @@ function createTempContent(temp, unit) {
   tempHeader.textContent = `Temperature (${unit})`;
   tempValue.textContent = temp + '°';
 
-  // add class names
   tempContainer.classList.add('flex-column-child', 'parent', 'temp-container');
   tempHeader.classList.add('info-header');
   tempValue.classList.add('temp');
 
   mainContainer.appendChild(tempContainer);
-  // more work is to be done on all this to make it a whole lot better and visually appealing
-  // I then need to append to the weather container/body
 }
 
 function createFeelsLike(feelsLike, unit) {
@@ -104,7 +101,6 @@ function createLocationContent(longitude, latitude) {
   latitudeContainer.appendChild(latitudeValue);
 
   mainContainer.appendChild(container);
-  //next step is to append to the body container or at least the weather container box
 }
 
 function createHumidityContent(humidity) {
@@ -123,7 +119,6 @@ function createHumidityContent(humidity) {
   humidityValue.classList.add('info-value');
 
   mainContainer.appendChild(humidityContainer);
-  // append to the body container
 }
 
 function createWindContent(windgust, windspeed, winddir, windUnit) {
@@ -176,7 +171,6 @@ function createWindContent(windgust, windspeed, winddir, windUnit) {
   windDirContainer.appendChild(windDirHeader);
   windDirContainer.appendChild(windDirValue);
 
-  // append to body container then
   mainContainer.appendChild(container);
 }
 
@@ -211,7 +205,6 @@ function createPrecipContent(precip, precipProb, unit) {
   precipProbContainer.appendChild(precipProbHeader);
   precipProbContainer.appendChild(precipProbValue);
 
-  //append to body of container
   mainContainer.appendChild(container)
 }
 
@@ -229,16 +222,15 @@ function createPressureContent(pressure, unit) {
   
   pressureContainer.appendChild(pressureHeader);
   pressureContainer.appendChild(pressureValue);
-  // append to body of container
   mainContainer.appendChild(pressureContainer);
 }
 
-function createVisibContent(visibility, unit) {
+function createVisibilityContent(visibility, unit) {
   const visibContainer = document.createElement('div');
   const visibHeader = document.createElement('p');
   const visibValue = document.createElement('p');
   
-  visibHeader.textContent = `Visiblity (${unit})`;
+  visibHeader.textContent = `Visibility (${unit})`;
   visibValue.textContent = visibility;
   
   visibContainer.appendChild(visibHeader);
@@ -247,7 +239,6 @@ function createVisibContent(visibility, unit) {
   visibContainer.classList.add('flex-column-child', 'parent');
   visibHeader.classList.add('info-header');
   visibValue.classList.add('info-value');
-  // append to body of container
   mainContainer.appendChild(visibContainer);
 }
 
@@ -265,7 +256,6 @@ function createDateTimeContent(datetime) {
   dateTimeContainer.classList.add('flex-column-child', 'parent');
   dateTimeHeader.classList.add('info-header');
   dateTimeValue.classList.add('info-value');
-  // append to body of container
   mainContainer.appendChild(dateTimeContainer);
 }
 
@@ -283,14 +273,12 @@ function createConditionsContent(conditions) {
   conditionsContainer.classList.add('flex-column-child', 'parent');
   conditionsHeader.classList.add('info-header');
   conditionsValue.classList.add('info-value');
-  // append to body of container
   mainContainer.appendChild(conditionsContainer);
 }
 
 function createAdditionalInfo(aqius, cloudcover, snowdepth, snowDepthUnit) {
   const container = document.createElement('div');
   const additionalInfoContainer = document.createElement('div');
-  // I am adding containers for snowdepth, aqius and cloudcover
   const aqiusContainer = document.createElement('div');
   const cloudCoverContainer = document.createElement('div');
   const snowdDepthContainer = document.createElement('div');
@@ -365,20 +353,19 @@ function createNoteContent() {
   The scope of this project is limited for now but improvements are to be made to make it sophisticated enough to represent accurate weather conditions, stay tuned.`;
 
   noteThree.textContent = `
-  Also note that resoled address shown at the top of the page varies, so it could be russian if you search for the weather in Moscow, Russia
-  or even chinese if you are looking for the weather in Beijing, China`;
+  Also note that the resolved address shown at the top of the page varies. It could be Russian if you search for the weather in Moscow, Russia,
+  or Chinese if you search for the weather in Beijing, China.`;
 
   noteFour.textContent = `
-  Info: The symbol/unit in the bracked tells the unit of measurement`;
+  Info: The symbol or unit in brackets indicates the unit of measurement.`;
 
   noteFive.textContent = `
-  Though I call it current conditions, the api used in this project provides me with RECENT weather condtions, which of cource is not this precies moment, 
-  it counts as current conditions when you think about it though, bare with me`;
+  This project describes the weather as current conditions, but the API provides recently observed conditions and may not reflect this exact moment.`;
 
   noteSix.textContent = `
-  The videos/media used in this project were gotten from Pixaby and Pexels, check them out.`;
+  The videos and media used in this project are from Pixabay and Pexels.`;
 
-  noteSeven.textContent = `The svgs used are from svgrepo`;
+  noteSeven.textContent = `The SVGs used are from SVG Repo.`;
 
   noteEight.textContent = `I hope you love it as much as I do. Enjoy your stay`;
 
@@ -440,7 +427,7 @@ function createCheckBox(name) {
   container.innerHTML = `
   <label for='metric-system'>
     <input type="radio" class="metric-system" name="system" value="metric">
-    Celcius
+    Celsius
   </label>
   <label for='imperial-system'>
     <input type="radio" class="imperial-system" name="system" value="us">
@@ -471,7 +458,7 @@ export function createWeatherBody(response, measureSystem) {
   clearMainContainer();
   
   createBackgroundVideo(weather.currentConditions.icon);
-  createResolvedLocationAdress(weather.resolvedAddress);
+  createResolvedLocationAddress(weather.resolvedAddress);
   createTempContent(weather.currentConditions.temp, system.temp);
   createFeelsLike(weather.currentConditions.feelslike, system.temp);
   createLocationContent(weather.longitude, weather.latitude);
@@ -479,12 +466,11 @@ export function createWeatherBody(response, measureSystem) {
   createWindContent(weather.currentConditions.windgust, weather.currentConditions.windspeed, weather.currentConditions.winddir, system.wind);
   createPrecipContent(weather.currentConditions.precip, weather.currentConditions.precipprob, system.precip);
   createPressureContent(weather.currentConditions.pressure, system.pressure);
-  createVisibContent(weather.currentConditions.visibility, system.visibility);
+  createVisibilityContent(weather.currentConditions.visibility, system.visibility);
   createConditionsContent(weather.currentConditions.conditions);
   createDateTimeContent(weather.currentConditions.datetime);
   createAdditionalInfo(weather.currentConditions.aqius, weather.currentConditions.cloudcover, weather.currentConditions.snowdepth, system.snowdepth);
   createCheckBox(systemName);
 
-  // Disclaimer
   createNoteContent();
 }

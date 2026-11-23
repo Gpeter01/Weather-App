@@ -1,3 +1,4 @@
+/* Theme tokens and reset */
 :root {
   --svg-width: 100%;
   --circumference: calc(2 * 80px * 3.14159265359);
@@ -9,6 +10,8 @@
   --backdrop-filter: blur(24px) saturate(180%);
   --parent-border: 1px solid rgba(255,255,255,.25);
   --parent-border-radius: 24px;
+  --sky-ink: #172633;
+  --sky-accent: #f0bf78;
 }
 
 @font-face {
@@ -24,21 +27,67 @@
   box-sizing: border-box;
 }
 
+/* Header */
 header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
-  border-bottom: var(--parent-border);
+  gap: 1.5rem;
+  padding: 0.85rem clamp(1.25rem, 5vw, 4rem);
+  border-bottom: 1px solid rgba(255,255,255,.12);
   position: sticky;
   top: 0;
   width: 100%;
   height: fit-content;
-  background: transparent;
-  backdrop-filter: blur(3px);
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+  color: rgba(255,255,255,.96);
+  background: rgba(19, 31, 42, .82);
+  backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 8px 28px rgba(10, 20, 28, .18);
   z-index: 1;
 }
 
+header h1 {
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  font-weight: 650;
+  letter-spacing: -.045em;
+}
+
+header .form-opener {
+  min-height: 2.85rem;
+  padding: .7rem 1.2rem;
+  gap: .75rem;
+  color: var(--sky-ink);
+  background: #f5f0e8;
+  font-size: .95rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+  box-shadow: 0 4px 14px rgba(8, 18, 27, .16);
+  transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+header .form-opener:hover {
+  background: white;
+  box-shadow: 0 8px 22px rgba(8, 18, 27, .24);
+  transform: translateY(-2px);
+}
+
+header .form-opener span {
+  height: 1rem;
+  width: 1rem;
+  margin: 0;
+  color: #806037;
+}
+
+header .form-opener svg {
+  display: block;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--sky-accent);
+  outline-offset: 3px;
+}
+
+/* Page layout */
 body {
   min-height: 100vh;
   font-family: Monaco, 'MyRoboto', Arial, 'Times New Roman', Times, serif;
@@ -59,26 +108,56 @@ main {
   padding: 1rem;
 }
 
+/* Welcome */
 .welcome-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: black url('assets/welcome.jpeg') center / cover no-repeat;
+  gap: 1.5rem;
+  padding: clamp(2rem, 7vw, 6rem) 1.5rem;
+  background:
+    linear-gradient(90deg, rgba(14, 26, 36, .76), rgba(17, 29, 38, .36) 58%, rgba(17, 29, 38, .16)),
+    linear-gradient(0deg, rgba(14, 26, 36, .48), transparent 52%),
+    url('assets/welcome.jpeg') center / cover no-repeat;
   width: 100%;
-  min-height: 80vh;
+  min-height: min(82svh, 900px);
 }
+
 div.welcome-glass-container {
-  padding: 2rem;
-  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  width: min(760px, 100%);
+  padding: clamp(2rem, 6vw, 4.5rem);
+  border-radius: 30px;
+  background: linear-gradient(135deg, rgba(20, 34, 45, .70), rgba(20, 34, 45, .34));
+  border-color: rgba(255,255,255,.3);
+  box-shadow: 0 24px 70px rgba(9, 18, 25, .3), inset 0 1px 1px rgba(255,255,255,.3);
+  animation: welcome-arrive 850ms cubic-bezier(.2, .75, .25, 1) both;
 }
 
 .welcome {
-  font-size: 4rem;
-  text-align: center;
+  max-width: 12ch;
+  font-size: clamp(2.6rem, 7vw, 5.5rem);
+  font-weight: 550;
+  line-height: 1.02;
+  letter-spacing: -.055em;
+  text-align: left;
   color: white;
-  animation: move 2s linear infinite alternate;
+  text-wrap: balance;
 }
 
+.welcome-glass-container p + p {
+  max-width: 38ch;
+  color: rgba(255,255,255,.82);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  line-height: 1.65;
+  animation: welcome-arrive 850ms 120ms cubic-bezier(.2, .75, .25, 1) both;
+}
+
+/* Shared flex layouts */
 .flex-column-parent, .flex-column-child, .flex-row-parent, footer, .button-container, .loader {
   display: flex;
   flex-direction: column;
@@ -86,6 +165,7 @@ div.welcome-glass-container {
   align-items: center;
 }
 
+/* Weather content */
 .parent {
   background: var(--glass-background);
   box-shadow: var(--parent-box-shadow);
@@ -148,6 +228,7 @@ div.welcome-glass-container {
   margin-bottom: 7rem;
 }
 
+/* Controls and dialogs */
 button {
   display: flex;
   align-items: center;
@@ -155,6 +236,8 @@ button {
   padding: 1rem 1.5rem;
   border-radius: 999px;
   font-family: 'MyRoboto', Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  transition: box-shadow 180ms ease, transform 180ms ease;
 }
 
 button:hover {
@@ -184,7 +267,8 @@ button[data-action='exit'] {
 }
 
 button[data-action='exit']:hover {
-  outline: 3px solid red;
+  outline: 2px solid rgba(194, 94, 80, .75);
+  outline-offset: 2px;
 }
 
 .form {
@@ -241,25 +325,32 @@ input::placeholder {
   font-style: italic;
 }
 
+/* Footer */
 footer {
   color: white;
   background-color: black;
   padding: 2rem;
 }
 
+/* Loading state */
 .loader {
-  width: 15vw;
-  padding: 1rem;
+  width: clamp(13rem, 24vw, 18rem);
+  min-height: 13rem;
+  padding: 2rem;
+  gap: 1.25rem;
   margin: auto;
   border-radius: var(--parent-border-radius);
-  border: 1px solid transparent;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255,255,255,.18);
+  color: rgba(255,255,255,.94);
+  background: rgba(23, 38, 51, .94);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .38), inset 0 1px 1px rgba(255,255,255,.12);
   outline: none;
+  animation: loader-arrive 260ms ease-out both;
 }
 
 .loader::backdrop {
-    background: rgba(25, 20, 17, 0.5);
-    backdrop-filter: blur(5px);
+  background: rgba(12, 21, 28, .42);
+  backdrop-filter: blur(7px);
 }
 
 dialog .error {
@@ -271,11 +362,17 @@ dialog .error {
 }
 
 .loader p {
-  font-family: 'Times New Roman', Times, serif;
-  font-style: italic;
-  font-size: 0.9rem;
+  color: rgba(255,255,255,.78);
+  font-size: .95rem;
+  letter-spacing: .025em;
 }
 
+.loader .svg-container {
+  width: 4rem;
+  height: 4rem;
+}
+
+/* Background media and utility details */
 .background-video {
   position: fixed;
   top: 0;
@@ -324,48 +421,54 @@ svg {
   width: var(--svg-width);
 }
 
-circle {
-  stroke: green;
-  stroke-width: 4px;
+/* Motion */
+.loader circle {
+  stroke: var(--sky-accent);
+  stroke-width: 5px;
   stroke-linecap: round;
   fill: transparent;
-  animation: grow 0.75s linear infinite alternate, spin 1.5s linear infinite alternate;
+  stroke-dasharray: 155 350;
+  transform-origin: 100px 100px;
+  animation: loader-spin 1.7s cubic-bezier(.55, .1, .35, .9) infinite;
 }
 
-@keyframes grow {
+@keyframes loader-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes loader-arrive {
   from {
-      stroke-dasharray: calc(var(--circumference) * 0.05), var(--circumference);
+    opacity: 0;
+    transform: translateY(8px) scale(.97);
   }
   to {
-      stroke-dasharray: calc(var(--circumference) * 0.25), var(--circumference);
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
-@keyframes spin {
+@keyframes welcome-arrive {
   from {
-      stroke-dashoffset: 0;
+    opacity: 0;
+    transform: translateY(18px);
   }
   to {
-      stroke-dashoffset: calc(var(--circumference) * -0.95);
-  }
-}
-
-@keyframes move {
-  0% {
-    transform: translateY(-3px);
-  }
-  100% {
-    transform: translateY(3px);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @media (width < 700px) {
   header {
-    flex-direction: column;
-    align-items: center;
+    gap: 1rem;
+    padding-inline: 1.25rem;
   }
-  .welcome {
-    font-size: 2rem;
+  .welcome-container {
+    min-height: 76svh;
+    background-position: 58% center;
+  }
+  div.welcome-glass-container {
+    border-radius: 24px;
   }
   footer p {
     text-align: center;
@@ -381,10 +484,38 @@ circle {
 }
 
 @media (width < 550px) {
+  header {
+    gap: .75rem;
+    padding: .75rem 1rem;
+  }
+  header .form-opener {
+    min-height: 2.65rem;
+    padding: .65rem .9rem;
+    font-size: .88rem;
+  }
+  header .form-opener span {
+    margin-inline-end: 0;
+  }
+  .welcome-container {
+    min-height: 72svh;
+    padding-inline: 1rem;
+  }
+  div.welcome-glass-container {
+    gap: 1rem;
+    padding: 1.75rem;
+  }
   .main {
     grid-template-columns: 95%;
   }
-  .loader {
-    width: 60%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
   }
 }
